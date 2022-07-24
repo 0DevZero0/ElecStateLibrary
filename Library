@@ -125,7 +125,7 @@ function library:LoadLib()
 end
 
 function library.NewButton(Name, ButtonText)
-    local Button = Instance.new("ImageLabel", Scripts)
+    local Button = Instance.new("ImageLabel", Scripts:FindFirstChildOfClass("ScrollingFrame"))
     Button.Name = Name
     Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     Button.BackgroundTransparency = 1.000
@@ -152,6 +152,6 @@ function library.NewButton(Name, ButtonText)
     return TextButton
 end
 
-print("Update 0.22 test")
+print("Update 0.22 test2")
 
 return library
