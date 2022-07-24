@@ -1,6 +1,7 @@
 local player = game.Players.LocalPlayer
-local clientGui = player.PlayerGui:WaitForChild("Client").Menu
-local catagories = clientGui:WaitForChild("Catagories")
+local clientGui = player.PlayerGui:WaitForChild("Client")
+local menu = clientGui:WaitForChild("Menu")
+local catagories = menu:WaitForChild("Catagories")
 
 local library = {}
 
@@ -66,7 +67,7 @@ function library:SetUpGUI()
     print("Category layout loaded")
 
     --ScriptsMenu
-    local Scripts = Instance.new("Frame", clientGui)
+    local Scripts = Instance.new("Frame", menu)
     Scripts.Name = "Scripts"
     Scripts.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     Scripts.BackgroundTransparency = 1.000
