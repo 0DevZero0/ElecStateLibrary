@@ -91,6 +91,7 @@ end
 function library:ChangeFrame()
     for i, v in pairs(CList) do
         local button = v:FindFirstChildOfClass("ImageButton")
+        if not button then continue end
         button.MouseButton1Click:Connect(function()
             if v.Name == "Scripts" then
                 table.find(CList, "Scripts").Visible = true
