@@ -2,10 +2,18 @@ local player = game.Players.LocalPlayer
 local clientGui = player.PlayerGui:WaitForChild("Client").Menu
 local catagories = clientGui:WaitForChild("Catagories")
 
-
 local library = {}
 
-function categoryLayout()
+function library:SetUpGUI()
+    --ListLayout
+    local UIListLayout = Instance.new("UIListLayout", catagories)
+
+    UIListLayout.Parent = game.StarterGui.Menu.Menu.Catagories
+    UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+    UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+
+    -- CategoryLayout
     local _5 = Instance.new("Frame", catagories)
     _5.Name = "5"
     _5.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -53,9 +61,8 @@ function categoryLayout()
     icon.ImageRectOffset = Vector2.new(281, 680)
     icon.ImageRectSize = Vector2.new(45, 45)
     icon.ScaleType = Enum.ScaleType.Crop
-end
 
-function scriptsMenu()
+    --ScriptsMenu
     local Scripts = Instance.new("Frame", clientGui)
     Scripts.Name = "Scripts"
     Scripts.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -75,18 +82,6 @@ function scriptsMenu()
     UIListLayout.Parent = ScrollingFrame
     UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
     UIListLayout.Padding = UDim.new(0.00400000019, 0)
-end
-
-function library:SetUpGUI()
-    local UIListLayout = Instance.new("UIListLayout", catagories)
-
-    UIListLayout.Parent = game.StarterGui.Menu.Menu.Catagories
-    UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-    UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-    UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
-
-    categoryLayout()
-    scriptsMenu()
 end
 
 return library
