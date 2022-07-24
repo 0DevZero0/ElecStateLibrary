@@ -13,6 +13,8 @@ function library:SetUpGUI()
     UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
     UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
 
+    print("List layout loaded")
+
     -- CategoryLayout
     local _5 = Instance.new("Frame", catagories)
     _5.Name = "5"
@@ -62,6 +64,8 @@ function library:SetUpGUI()
     icon.ImageRectSize = Vector2.new(45, 45)
     icon.ScaleType = Enum.ScaleType.Crop
 
+    print("Category layout loaded")
+
     --ScriptsMenu
     local Scripts = Instance.new("Frame", clientGui)
     Scripts.Name = "Scripts"
@@ -82,6 +86,8 @@ function library:SetUpGUI()
     UIListLayout.Parent = ScrollingFrame
     UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
     UIListLayout.Padding = UDim.new(0.00400000019, 0)
+
+    print("Scripts menu loaded")
 end
 
 return library
