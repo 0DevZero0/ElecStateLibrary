@@ -125,7 +125,7 @@ function library:LoadLib()
 end
 
 function library.NewTitle(Name, Text)
-    local Title = Instance.new("TextLabel")
+    local Title = Instance.new("TextLabel", Scripts:FindFirstChildOfClass("ScrollingFrame"))
     Title.Name = Name
     Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     Title.BackgroundTransparency = 1.000
