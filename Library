@@ -103,4 +103,6 @@ function library:LoadLib()
     end
 end
 
+Print("Update 1")
+
 return library
