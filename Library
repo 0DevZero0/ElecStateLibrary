@@ -114,6 +114,7 @@ function library:LoadLib()
         local button = v:FindFirstChildOfClass("ImageButton")
         if button then
             button.MouseButton1Click:Connect(function()
+                active = false
                 Scripts.Visible = false
                 _5Button.ImageColor3 = Color3.fromHex("#5b544b")
             end)
@@ -121,6 +122,6 @@ function library:LoadLib()
     end
 end
 
-print("Update 0.21")
+print("Update 0.211")
 
 return library
