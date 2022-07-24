@@ -8,6 +8,8 @@ local library = {}
 local CategoryButtons = {catagories["1"], catagories["2"], catagories["3"], catagories["4"]}
 local CList = {menu.Jobs, menu.Shop, menu.Rules, menu.Action}
 
+local Scripts = nil
+
 function library:LoadLib()
     --ListLayout
     local UIListLayout = Instance.new("UIListLayout", catagories)
@@ -66,7 +68,7 @@ function library:LoadLib()
     icon.ScaleType = Enum.ScaleType.Crop
 
     --ScriptsMenu
-    local Scripts = Instance.new("Frame", menu)
+    Scripts = Instance.new("Frame", menu)
     Scripts.Name = "Scripts"
     Scripts.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     Scripts.BackgroundTransparency = 1.000
@@ -101,11 +103,11 @@ function library:LoadLib()
         end
     end)
 
-    _5Button.MouseEnter:Connect(function(x, y)
+    _5Button.MouseEnter:Connect(function()
         if active then return end
         _5Button.ImageColor3 = Color3.fromHex("#36312C")
     end)
-    _5Button.MouseLeave:Connect(function(x, y)
+    _5Button.MouseLeave:Connect(function()
         if active then return end
         _5Button.ImageColor3 = Color3.fromHex("#5b544b")
     end)
@@ -122,6 +124,31 @@ function library:LoadLib()
     end
 end
 
-print("Update 0.22")
+function library.Button:New()
+    local Button = Instance.new("ImageLabel", Scripts)
+    Button.Name = "Button"
+    Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Button.BackgroundTransparency = 1.000
+    Button.Position = UDim2.new(-0.0349854231, 0, 0.0591133013, 0)
+    Button.Size = UDim2.new(1, -14, 0, 30)
+    Button.Image = "rbxassetid://725697201"
+    Button.ImageColor3 = Color3.fromRGB(140, 140, 140)
+    Button.ScaleType = Enum.ScaleType.Slice
+    Button.SliceCenter = Rect.new(34, 34, 34, 34)
+
+    local TextButton = Instance.new("TextButton", Button)
+    TextButton.AnchorPoint = Vector2.new(0.5, 0.5)
+    TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextButton.BackgroundTransparency = 1.000
+    TextButton.BorderSizePixel = 0
+    TextButton.Position = UDim2.new(0.5, 0, 0.5, 0)
+    TextButton.Size = UDim2.new(1, 0, 0.800000012, 0)
+    TextButton.Font = Enum.Font.SourceSansBold
+    TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextButton.TextSize = 20.000
+    TextButton.TextStrokeTransparency = 0.500
+end
+
+print("Update 0.22 test")
 
 return library
