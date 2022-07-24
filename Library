@@ -101,14 +101,14 @@ function library:LoadLib()
         end
     end)
 
-    if not active then
-        _5Button.MouseEnter:Connect(function(x, y)
-            _5Button.ImageColor3 = Color3.fromHex("#36312C")
-        end)
-        _5Button.MouseLeave:Connect(function(x, y)
-            _5Button.ImageColor3 = Color3.fromHex("#5b544b")
-        end)
-    end
+    _5Button.MouseEnter:Connect(function(x, y)
+        if active then return end
+        _5Button.ImageColor3 = Color3.fromHex("#36312C")
+    end)
+    _5Button.MouseLeave:Connect(function(x, y)
+        if active then return end
+        _5Button.ImageColor3 = Color3.fromHex("#5b544b")
+    end)
 
     for _, v in pairs(CategoryButtons) do
         local button = v:FindFirstChildOfClass("ImageButton")
@@ -122,6 +122,6 @@ function library:LoadLib()
     end
 end
 
-print("Update 0.211")
+print("Update 0.22")
 
 return library
