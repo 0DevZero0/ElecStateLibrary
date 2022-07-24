@@ -56,9 +56,8 @@ function categoryLayout()
 end
 
 function scriptsMenu()
-    local Scripts = Instance.new("Frame")
+    local Scripts = Instance.new("Frame", clientGui)
     Scripts.Name = "Scripts"
-    Scripts.Parent = game.StarterGui.Menu.Menu
     Scripts.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     Scripts.BackgroundTransparency = 1.000
     Scripts.Size = UDim2.new(1, 0, 1, 0)
