@@ -8,7 +8,6 @@ function library:SetUpGUI()
     --ListLayout
     local UIListLayout = Instance.new("UIListLayout", catagories)
 
-    UIListLayout.Parent = game.StarterGui.Menu.Menu.Catagories
     UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
     UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
     UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
