@@ -5,9 +5,9 @@ local catagories = menu:WaitForChild("Catagories")
 
 local library = {}
 
-local CList = {menu:WaitForChild("Jobs"), menu:WaitForChild("Shop"), menu:WaitForChild("Rules"), menu:WaitForChild("Action")}
+local CList = {catagories["1"], catagories["2"], catagories["3"], catagories["4"]}
 
-function library:SetUpGUI()
+function library:LoadLib()
     --ListLayout
     local UIListLayout = Instance.new("UIListLayout", catagories)
 
@@ -88,8 +88,11 @@ function library:SetUpGUI()
 
     _5Button.MouseButton1Click:Connect(function()
         Scripts.Visible = true
+        for i, v in ipairs(CList) do
+            v.Visible = false
+        end
     end)
-    for i, v in pairs(CList) do
+    for _, v in pairs(CList) do
         local button = v:FindFirstChildOfClass("ImageButton")
         if button then
             button.MouseButton1Click:Connect(function()
