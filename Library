@@ -24,20 +24,20 @@ function library:SetUpGUI()
     _5.Position = UDim2.new(0.5, 0, 0, 210)
     _5.Size = UDim2.new(0, 70, 0, 70)
 
-    local _4 = Instance.new("ImageButton")
-    _4.Name = "4"
-    _4.Parent = _5
-    _4.AnchorPoint = Vector2.new(0.5, 0.5)
-    _4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    _4.BackgroundTransparency = 1.000
-    _4.Position = UDim2.new(0.5, 0, 0.5, 0)
-    _4.Size = UDim2.new(0, 60, 0, 60)
-    _4.ZIndex = 10
-    _4.Image = "rbxassetid://553151967"
-    _4.ImageColor3 = Color3.fromRGB(91, 84, 75)
+    local _5Button = Instance.new("ImageButton")
+    _5Button.Name = "5"
+    _5Button.Parent = _5
+    _5Button.AnchorPoint = Vector2.new(0.5, 0.5)
+    _5Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    _5Button.BackgroundTransparency = 1.000
+    _5Button.Position = UDim2.new(0.5, 0, 0.5, 0)
+    _5Button.Size = UDim2.new(0, 60, 0, 60)
+    _5Button.ZIndex = 10
+    _5Button.Image = "rbxassetid://553151967"
+    _5Button.ImageColor3 = Color3.fromRGB(91, 84, 75)
 
     local TextLabel = Instance.new("TextLabel")
-    TextLabel.Parent = _4
+    TextLabel.Parent = _5Button
     TextLabel.AnchorPoint = Vector2.new(0, 1)
     TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     TextLabel.BackgroundTransparency = 1.000
@@ -52,7 +52,7 @@ function library:SetUpGUI()
 
     local icon = Instance.new("ImageLabel")
     icon.Name = "icon"
-    icon.Parent = _4
+    icon.Parent = _5Button
     icon.AnchorPoint = Vector2.new(0.5, 0.5)
     icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     icon.BackgroundTransparency = 1.000
@@ -72,6 +72,7 @@ function library:SetUpGUI()
     Scripts.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     Scripts.BackgroundTransparency = 1.000
     Scripts.Size = UDim2.new(1, 0, 1, 0)
+    Scripts.Visible = false
 
     local ScrollingFrame = Instance.new("ScrollingFrame")
     ScrollingFrame.Parent = Scripts
@@ -88,6 +89,10 @@ function library:SetUpGUI()
     UIListLayout.Padding = UDim.new(0.00400000019, 0)
 
     print("Scripts menu loaded")
+
+    local function ChangeMode()
+        
+    end
 end
 
 return library
