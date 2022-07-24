@@ -87,22 +87,40 @@ function library:LoadLib()
     UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
     UIListLayout.Padding = UDim.new(0.00400000019, 0)
 
+    local active = false
+
     _5Button.MouseButton1Click:Connect(function()
+        active = true
         Scripts.Visible = true
-        for i, v in ipairs(CList) do
+        _5Button.ImageColor3 = Color3.fromHex("#36312C")
+        for _, v in ipairs(CList) do
             v.Visible = false
         end
+        for _, v in ipairs(CategoryButtons) do
+            v.ImageColor3 = Color3.fromHex("#5b544b")
+        end
     end)
+
+    if not active then
+        _5Button.MouseEnter:Connect(function(x, y)
+            _5Button.ImageColor3 = Color3.fromHex("#36312C")
+        end)
+        _5Button.MouseLeave:Connect(function(x, y)
+            _5Button.ImageColor3 = Color3.fromHex("#5b544b")
+        end)
+    end
+
     for _, v in pairs(CategoryButtons) do
         local button = v:FindFirstChildOfClass("ImageButton")
         if button then
             button.MouseButton1Click:Connect(function()
                 Scripts.Visible = false
+                _5Button.ImageColor3 = Color3.fromHex("#5b544b")
             end)
         end
     end
 end
 
-print("Update 0.1")
+print("Update 0.2")
 
 return library
