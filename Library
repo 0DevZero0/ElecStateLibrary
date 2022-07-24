@@ -5,6 +5,8 @@ local catagories = menu:WaitForChild("Catagories")
 
 local library = {}
 
+local CList = {menu:WaitForChild("Jobs"), menu:WaitForChild("Shop"), menu:WaitForChild("Rules"), menu:WaitForChild("Action")}
+
 function library:SetUpGUI()
     --ListLayout
     local UIListLayout = Instance.new("UIListLayout", catagories)
@@ -12,8 +14,6 @@ function library:SetUpGUI()
     UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
     UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
     UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
-
-    print("List layout loaded")
 
     -- CategoryLayout
     local _5 = Instance.new("Frame", catagories)
@@ -64,8 +64,6 @@ function library:SetUpGUI()
     icon.ImageRectSize = Vector2.new(45, 45)
     icon.ScaleType = Enum.ScaleType.Crop
 
-    print("Category layout loaded")
-
     --ScriptsMenu
     local Scripts = Instance.new("Frame", menu)
     Scripts.Name = "Scripts"
@@ -82,16 +80,24 @@ function library:SetUpGUI()
     ScrollingFrame.Position = UDim2.new(0, 5, 0.5, 0)
     ScrollingFrame.Size = UDim2.new(1, -10, 1, -10)
     ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 766)
+    table.insert(CList, Scripts)
 
     local UIListLayout = Instance.new("UIListLayout")
     UIListLayout.Parent = ScrollingFrame
     UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
     UIListLayout.Padding = UDim.new(0.00400000019, 0)
+end
 
-    print("Scripts menu loaded")
-
-    local function ChangeMode()
-        
+function library:ChangeFrame()
+    for i, v in pairs(CList) do
+        local button = v:FindFirstChildOfClass("ImageButton")
+        button.MouseButton1Click:Connect(function()
+            if v.Name == "Scripts" then
+                table.find(CList, "Scripts").Visible = true
+            else
+                table.find(CList, "Scripts").Visible = false
+            end
+        end)
     end
 end
 
