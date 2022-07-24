@@ -124,7 +124,7 @@ function library:LoadLib()
     end
 end
 
-function library.Button:New(Name, ButtonText)
+function library.NewButton(Name, ButtonText)
     local Button = Instance.new("ImageLabel", Scripts)
     Button.Name = Name
     Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -148,6 +148,8 @@ function library.Button:New(Name, ButtonText)
     TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
     TextButton.TextSize = 20.000
     TextButton.TextStrokeTransparency = 0.500
+
+    return TextButton
 end
 
 print("Update 0.22 test")
