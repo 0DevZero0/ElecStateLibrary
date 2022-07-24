@@ -103,6 +103,6 @@ function library:LoadLib()
     end
 end
 
-print("Update 1")
+print("Update 0.1")
 
 return library
