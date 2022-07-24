@@ -97,7 +97,7 @@ function library:LoadLib()
             v.Visible = false
         end
         for _, v in ipairs(CategoryButtons) do
-            v.ImageColor3 = Color3.fromHex("#5b544b")
+            v:FindFirstChildOfClass("ImageButton").ImageColor3 = Color3.fromHex("#5b544b")
         end
     end)
 
@@ -121,6 +121,6 @@ function library:LoadLib()
     end
 end
 
-print("Update 0.2")
+print("Update 0.21")
 
 return library
