@@ -171,7 +171,7 @@ function library.NewButton(Name, ButtonText)
     return TextButton
 end
 
-function library.NewInput(Name, PlaceholderText)
+function library.NewInput(Name, PlaceholderText, callback)
     local Input = Instance.new("ImageLabel", Scripts:FindFirstChildOfClass("ScrollingFrame"))
     Input.Name = Name
     Input.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -196,7 +196,9 @@ function library.NewInput(Name, PlaceholderText)
     TextBox.TextSize = 20.000
     TextBox.TextStrokeTransparency = 0.500
 
-    return TextBox
+    TextBox.FocusLost:Connect(callback(TextBox.Text))
+
+    return Input
 end
 
 function library.NewToggle(Name, Text, callback)
