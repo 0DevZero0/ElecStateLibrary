@@ -318,16 +318,17 @@ function library.NewKeybinder(Name, TBind)
                     bind = input.KeyCode
                 end
             end
-            return bind
         end)
     end
     coroutine.wrap(Functionality)()
+
+    return bind
 end
 
 function library.NewSlider()
     
 end
 
-print("Update 0.23 t4")
+print("Update 0.23 t5")
 
 return library
