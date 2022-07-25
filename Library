@@ -436,6 +436,6 @@ function library.NewSlider(Name, MaxSlide, callback)
     coroutine.wrap(functionality)()
 end
 
-print("Update 0.24 t2")
+print("Update 0.25")
 
 return library
