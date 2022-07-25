@@ -1,0 +1,62 @@
+local player = game.Players.LocalPlayer
+
+if game.PlaceId ~= 2262441883 then player:Kick("Wrong game retard") end
+if not game:IsLoaded() then game.Loaded:Wait() end
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/0DevZero0/ElecStateLibrary/main/Library"))(); lib:LoadLib()
+
+local printersFolder = game:GetService("Workspace").MoneyPrinters
+local entitiesFolder = game:GetService("Workspace").Entities
+
+local ChamsTitle = lib.NewTitle("Chams", "Chams")
+local PrinterChams = lib.NewToggle("PrinterChams", "Printer chams")
+local PChamsActive = false
+
+local ShipmentChams = lib.NewToggle("ShipmentChams", "Shipment chams")
+local SChamsActive = false
+
+local cache = {
+    Highlights = {
+        PChams = {},
+        SChams = {}
+    },
+}
+
+PrinterChams.MouseButton1Click:Connect(function()
+    PChamsActive = not PChamsActive
+end)
+
+ShipmentChams.MouseButton1Click:Connect(function()
+    SChamsActive = not SChamsActive
+end)
+
+game:GetService("RunService").Heartbeat:Connect(function()
+    if PChamsActive then
+        for i, v in ipairs(printersFolder:GetChildren()) do
+            if not v:FindFirstChild("Main") then continue end
+            if v.Main:FindFirstChild("Chams") then continue end
+            local HL = Instance.new("Highlight", v.Main)
+            HL.Name = "Chams"; HL.OutlineTransparency = 1; HL.FillColor = Color3.fromRGB(197, 0, 0)
+            table.insert(cache.Highlights.PChams, HL)
+        end
+    else
+        for i, v in pairs(cache.Highlights.PChams) do
+            v:Destroy()
+        end
+    end
+
+    if SChamsActive then
+        for i, v in ipairs(entitiesFolder:GetChildren()) do
+            if v:FindFirstChild("MeshPart") and v:FindFirstChild("Int") and v.Int:FindFirstChild("Uses") and not v.MeshPart:FindFirstChild("Chams") then 
+                if v.Int.Uses.Value <= 0 then continue end
+                local HL = Instance.new("Highlight", v.MeshPart)
+                HL.Name = "Chams"; HL.OutlineTransparency = 1; HL.FillColor = Color3.fromRGB(155, 88, 0)
+                table.insert(cache.Highlights.SChams, HL)
+            end
+        end
+    else
+        for i, v in pairs(cache.Highlights.SChams) do
+            v:Destroy()
+        end
+    end
+
+end)
