@@ -168,7 +168,7 @@ function library.NewButton(Name, ButtonText)
     return TextButton
 end
 
-function library.NewInput(Name)
+function library.NewInput(Name, PlaceholderText)
     local Input = Instance.new("ImageLabel", Scripts:FindFirstChildOfClass("ScrollingFrame"))
     Input.Name = Name
     Input.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -187,7 +187,7 @@ function library.NewInput(Name)
     TextBox.Position = UDim2.new(0.5, 0, 0.5, 0)
     TextBox.Size = UDim2.new(1, 0, 0.800000012, 0)
     TextBox.Font = Enum.Font.SourceSansBold
-    TextBox.PlaceholderText = "Input"
+    TextBox.PlaceholderText = PlaceholderText
     TextBox.Text = ""
     TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
     TextBox.TextSize = 20.000
@@ -196,8 +196,79 @@ function library.NewInput(Name)
     return TextBox
 end
 
-function library.NewToggle()
+function library.NewToggle(Name, Text)
+    local Toggle = Instance.new("ImageLabel", Scripts:FindFirstChildOfClass("ScrollingFrame"))
+    Toggle.Name = Name
+    Toggle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Toggle.BackgroundTransparency = 1.000
+    Toggle.Position = UDim2.new(-0.0349854231, 0, 0.0591133013, 0)
+    Toggle.Size = UDim2.new(1, -14, 0, 30)
+    Toggle.Image = "rbxassetid://725697201"
+    Toggle.ImageColor3 = Color3.fromRGB(140, 140, 140)
+    Toggle.ScaleType = Enum.ScaleType.Slice
+    Toggle.SliceCenter = Rect.new(34, 34, 34, 34)
+
+    local TextLabel = Instance.new("TextLabel", Toggle)
+    TextLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+    TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.BackgroundTransparency = 1.000
+    TextLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+    TextLabel.Size = UDim2.new(1, 0, 0.800000012, 0)
+    TextLabel.ZIndex = 3
+    TextLabel.Font = Enum.Font.SourceSansBold
+    TextLabel.Text = Text
+    TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.TextSize = 20.000
+    TextLabel.TextStrokeTransparency = 0.500
+    TextLabel.TextWrapped = true
+
+    local Frame = Instance.new("Frame", Toggle)
+    Frame.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
+    Frame.Position = UDim2.new(0.93599999, 0, -0, 0)
+    Frame.Size = UDim2.new(0, 30, 0, 30)
+
+    local TextButton = Instance.new("TextButton", Frame)
+    TextButton.AnchorPoint = Vector2.new(0.5, 0.5)
+    TextButton.BackgroundColor3 = Color3.fromRGB(75, 75, 75)
+    TextButton.Position = UDim2.new(0.5, 0, 0.5, 0)
+    TextButton.Size = UDim2.new(0.850000024, 0, 0.850000024, 0)
+    TextButton.ZIndex = 4
+    TextButton.Font = Enum.Font.SourceSans
+    TextButton.Text = ""
+    TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+    TextButton.TextSize = 14.000
+
+    local UICorner = Instance.new("UICorner", TextButton)
+    UICorner.CornerRadius = UDim.new(0, 5)
+
+    local UICorner_2 = Instance.new("UICorner", Frame)
+    UICorner_2.CornerRadius = UDim.new(0, 5)
+
+    local Bool = false
+
+    local function Functionality() -- TextButton.LocalScript 
+        local script = Instance.new('LocalScript', TextButton)
     
+        local tweenService = game:GetService("TweenService")
+        local info = TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
+        
+        local function tween(tweenItem, property, color)
+            local newTween = tweenService:Create(tweenItem, info, {[property] = color})
+            newTween:Play()
+        end
+        
+        script.Parent.MouseButton1Click:Connect(function()
+            Bool = not Bool
+            if Bool then
+                tween(script.Parent, "BackgroundColor3", Color3.new(0.784314, 0.784314, 0.784314))
+            elseif not Bool then
+                tween(script.Parent, "BackgroundColor3", Color3.new(0.294118, 0.294118, 0.294118))
+            end
+        end)
+    end
+    coroutine.wrap(Functionality)()
+
+    return Bool
 end
 
 function library.NewKeybinder()
@@ -208,6 +279,6 @@ function library.NewSlider()
     
 end
 
-print("Update 0.22 test3")
+print("Update 0.23")
 
 return library
