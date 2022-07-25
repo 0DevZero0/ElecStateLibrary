@@ -318,7 +318,10 @@ function library.NewKeybinder(Name, TBind, callback)
                     bind = input.KeyCode
                 end
             end
-            callback(bind)
+
+            if input.KeyCode == bind then
+                callback(bind)
+            end
         end)
     end
     coroutine.wrap(Functionality)()
@@ -328,6 +331,6 @@ function library.NewSlider()
     
 end
 
-print("Update 0.23 t5")
+print("Update 0.23 t6")
 
 return library
