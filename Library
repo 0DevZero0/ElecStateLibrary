@@ -8,6 +8,9 @@ local library = {}
 local CategoryButtons = {catagories["1"], catagories["2"], catagories["3"], catagories["4"]}
 local CList = {menu.Jobs, menu.Shop, menu.Rules, menu.Action}
 
+local RS = game:GetService("RunService")
+local UIS = game:GetService("UserInputService")
+
 local Scripts = nil
 
 function library:LoadLib()
@@ -298,7 +301,6 @@ function library.NewKeybinder(Name, TBind, callback)
     local bind = TBind
 
     local function Functionality()
-        local UIS = game:GetService("UserInputService")
         local changeBind = false
         
         TextButton.MouseButton1Click:Connect(function()
@@ -328,10 +330,112 @@ function library.NewKeybinder(Name, TBind, callback)
     coroutine.wrap(Functionality)()
 end
 
-function library.NewSlider()
+function library.NewSlider(Name, MaxSlide, callback)
+    local Slider = Instance.new("ImageLabel")
+    Slider.Name = Name
+    Slider.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Slider.BackgroundTransparency = 1.000
+    Slider.Position = UDim2.new(-0.0349854231, 0, 0.0591133013, 0)
+    Slider.Size = UDim2.new(1, -14, 0, 30)
+    Slider.Image = "rbxassetid://725697201"
+    Slider.ImageColor3 = Color3.fromRGB(140, 140, 140)
+    Slider.ScaleType = Enum.ScaleType.Slice
+    Slider.SliceCenter = Rect.new(34, 34, 34, 34)
     
+    local Line = Instance.new("Frame", Slider)
+    Line.Name = "Line"
+    Line.AnchorPoint = Vector2.new(0.5, 0.5)
+    Line.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
+    Line.BorderSizePixel = 0
+    Line.ClipsDescendants = true
+    Line.Position = UDim2.new(0.5, 0, 0.5, 0)
+    Line.Size = UDim2.new(0.899999976, 0, 0.100000001, 0)
+    
+    local Bar = Instance.new("Frame", Line)
+    Bar.Name = "Bar"
+    Bar.AnchorPoint = Vector2.new(1, 0.5)
+    Bar.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    Bar.BorderSizePixel = 0
+    Bar.Position = UDim2.new(0, 0, 0.5, 0)
+    Bar.Size = UDim2.new(1, 0, 1, 0)
+    
+    local Amount = Instance.new("TextLabel", Slider)
+    Amount.Name = "Amount"
+    Amount.AnchorPoint = Vector2.new(0.5, 0.5)
+    Amount.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Amount.BackgroundTransparency = 1.000
+    Amount.Position = UDim2.new(0.0255102534, 0, 0.476190448, 0)
+    Amount.Size = UDim2.new(0.0381151065, 0, 0.607884645, 0)
+    Amount.Font = Enum.Font.SourceSansBold
+    Amount.Text = "0"
+    Amount.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Amount.TextScaled = true
+    Amount.TextSize = 14.000
+    Amount.TextStrokeTransparency = 0.000
+    Amount.TextWrapped = true
+    
+    local Slider_2 = Instance.new("TextButton", Slider)
+    Slider_2.Name = "Slider"
+    Slider_2.AnchorPoint = Vector2.new(0.5, 0.5)
+    Slider_2.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
+    Slider_2.BackgroundTransparency = 1.000
+    Slider_2.BorderColor3 = Color3.fromRGB(255, 255, 255)
+    Slider_2.BorderSizePixel = 0
+    Slider_2.Position = UDim2.new(0.5, 0, 0.5, 0)
+    Slider_2.Size = UDim2.new(0.899999976, 0, 0.5, 0)
+    Slider_2.ZIndex = 2
+    Slider_2.Font = Enum.Font.SourceSans
+    Slider_2.Text = ""
+    Slider_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+    Slider_2.TextSize = 14.000
+    
+    local function functionality()
+        local frame = Line
+        local button = Slider
+        local bar = Bar
+        local text = Amount
+        local db = false
+        local percentage = 0
+        local Max = MaxSlide
+        local step = 1/Max
+    
+        local function snap(num,factor)
+            if factor == 0 then
+                return num
+            else
+                return math.floor(num/factor+0.5)*factor
+            end
+        end
+    
+        UIS.InputEnded:Connect(function(input)
+            if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                db = false
+            end
+        end)
+    
+        button.MouseButton1Down:Connect(function()
+            db = true
+        end)
+    
+        RS.RenderStepped:Connect(function()
+            if db then
+                local mousepos = UIS:GetMouseLocation().X
+                local buttonpos = button.Position
+                local framesize = frame.AbsoluteSize.X
+                local framepos = frame.AbsolutePosition.X
+                local pos = snap((mousepos-framepos)/framesize,step)
+                percentage = math.clamp(pos,0,1)
+                bar.Position = UDim2.new(percentage,0,buttonpos.Y.Scale,buttonpos.Y.Offset)
+    
+                local number = math.floor(percentage * Max)
+                text.Text = number
+                callback(number)
+            end
+        end)
+    end
+    coroutine.wrap(functionality)()
 end
 
-print("Update 0.23 t7.2")
+print("Update 0.24 t1")
 
 return library
