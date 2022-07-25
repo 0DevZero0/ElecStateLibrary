@@ -298,14 +298,12 @@ function library.NewKeybinder(Name, TBind)
     local bind = TBind
 
     local function Functionality()
-        local script = Instance.new('LocalScript', TextButton)
-
         local UIS = game:GetService("UserInputService")
         local changeBind = false
         
-        script.Parent.MouseButton1Click:Connect(function()
+        TextButton.MouseButton1Click:Connect(function()
             changeBind = true
-            script.Parent.Text = ". . ."
+            TextButton.Text = ". . ."
         end)
         
         UIS.InputBegan:Connect(function(input, processsed)
@@ -313,24 +311,23 @@ function library.NewKeybinder(Name, TBind)
             if changeBind then
                 changeBind = false
                 if input.KeyCode == Enum.KeyCode.Backspace then
-                    script.Parent.Text = "Nil bind"
+                    TextButton.Text = "Nil bind"
                     bind = nil
                 else
-                    script.Parent.Text = input.KeyCode.Name
+                    TextButton.Text = input.KeyCode.Name
                     bind = input.KeyCode
                 end
             end
+            return bind
         end)
     end
     coroutine.wrap(Functionality)()
-
-    return bind
 end
 
 function library.NewSlider()
     
 end
 
-print("Update 0.23 t3")
+print("Update 0.23 t4")
 
 return library
