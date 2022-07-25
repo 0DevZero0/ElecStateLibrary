@@ -4,6 +4,8 @@ if game.PlaceId ~= 2262441883 then player:Kick("Wrong game retard") end
 if not game:IsLoaded() then game.Loaded:Wait() end
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/0DevZero0/ElecStateLibrary/main/Library"))(); lib:LoadLib()
 
+print("Loaded : Update 0.1")
+
 local printersFolder = game:GetService("Workspace").MoneyPrinters
 local entitiesFolder = game:GetService("Workspace").Entities
 
@@ -56,15 +58,3 @@ game:GetService("RunService").Heartbeat:Connect(function()
     end
 
 end)
-
---[[
-Name change function
-
-local ohNumber1 = 8
-local ohTable2 = {
-	[1] = "1",
-	[2] = "",
-	[3] = false
-}
-
-game:GetService("ReplicatedStorage").Events.MenuActionEvent:FireServer(ohNumber1, ohTable2)]]
