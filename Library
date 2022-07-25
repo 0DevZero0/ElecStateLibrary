@@ -199,7 +199,7 @@ function library.NewInput(Name, PlaceholderText)
     return TextBox
 end
 
-function library.NewToggle(Name, Text)
+function library.NewToggle(Name, Text, callback)
     local Toggle = Instance.new("ImageLabel", Scripts:FindFirstChildOfClass("ScrollingFrame"))
     Toggle.Name = Name
     Toggle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -266,11 +266,12 @@ function library.NewToggle(Name, Text)
             elseif not Bool then
                 tween(toggleButton.Parent, "BackgroundColor3", Color3.new(0.294118, 0.294118, 0.294118))
             end
+            callback(Bool)
         end)
     end
     coroutine.wrap(Functionality)()
 
-    return TextButton
+    return Toggle
 end
 
 function library.NewKeybinder(Name, TBind, callback)
