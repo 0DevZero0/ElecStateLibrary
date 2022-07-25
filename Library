@@ -331,7 +331,7 @@ function library.NewKeybinder(Name, TBind, callback)
 end
 
 function library.NewSlider(Name, MaxSlide, callback)
-    local Slider = Instance.new("ImageLabel")
+    local Slider = Instance.new("ImageLabel", Scripts:FindFirstChildOfClass("ScrollingFrame"))
     Slider.Name = Name
     Slider.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     Slider.BackgroundTransparency = 1.000
@@ -391,7 +391,7 @@ function library.NewSlider(Name, MaxSlide, callback)
     
     local function functionality()
         local frame = Line
-        local button = Slider
+        local button = Slider_2
         local bar = Bar
         local text = Amount
         local db = false
@@ -436,6 +436,6 @@ function library.NewSlider(Name, MaxSlide, callback)
     coroutine.wrap(functionality)()
 end
 
-print("Update 0.24 t1")
+print("Update 0.24 t2")
 
 return library
