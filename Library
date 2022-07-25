@@ -244,10 +244,9 @@ function library.NewToggle(Name, Text)
     local UICorner_2 = Instance.new("UICorner", Frame)
     UICorner_2.CornerRadius = UDim.new(0, 5)
 
-    local Bool = false
-
     local function Functionality() -- TextButton.LocalScript 
-        local script = Instance.new('LocalScript', TextButton)
+        local toggleButton = Instance.new('LocalScript', TextButton)
+        local Bool = false
     
         local tweenService = game:GetService("TweenService")
         local info = TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
@@ -257,18 +256,18 @@ function library.NewToggle(Name, Text)
             newTween:Play()
         end
         
-        script.Parent.MouseButton1Click:Connect(function()
+        toggleButton.Parent.MouseButton1Click:Connect(function()
             Bool = not Bool
             if Bool then
-                tween(script.Parent, "BackgroundColor3", Color3.new(0.784314, 0.784314, 0.784314))
+                tween(toggleButton.Parent, "BackgroundColor3", Color3.new(0.784314, 0.784314, 0.784314))
             elseif not Bool then
-                tween(script.Parent, "BackgroundColor3", Color3.new(0.294118, 0.294118, 0.294118))
+                tween(toggleButton.Parent, "BackgroundColor3", Color3.new(0.294118, 0.294118, 0.294118))
             end
         end)
     end
     coroutine.wrap(Functionality)()
 
-    return Bool
+    return TextButton
 end
 
 function library.NewKeybinder()
@@ -279,6 +278,6 @@ function library.NewSlider()
     
 end
 
-print("Update 0.23")
+print("Update 0.23 test2")
 
 return library
