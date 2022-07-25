@@ -270,7 +270,7 @@ function library.NewToggle(Name, Text)
     return TextButton
 end
 
-function library.NewKeybinder(Name, TBind)
+function library.NewKeybinder(Name, TBind, callback)
     local KeyBind = Instance.new("ImageLabel", Scripts:FindFirstChildOfClass("ScrollingFrame"))
     KeyBind.Name = Name
     KeyBind.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -317,12 +317,11 @@ function library.NewKeybinder(Name, TBind)
                     TextButton.Text = input.KeyCode.Name
                     bind = input.KeyCode
                 end
+                callback(bind)
             end
         end)
     end
     coroutine.wrap(Functionality)()
-
-    return bind
 end
 
 function library.NewSlider()
