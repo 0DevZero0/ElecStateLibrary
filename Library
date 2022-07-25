@@ -270,14 +270,67 @@ function library.NewToggle(Name, Text)
     return TextButton
 end
 
-function library.NewKeybinder()
-    
+function library.NewKeybinder(Name, Bind)
+    local KeyBind = Instance.new("ImageLabel", Scripts:FindFirstChildOfClass("ScrollingFrame"))
+    KeyBind.Name = Name
+    KeyBind.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    KeyBind.BackgroundTransparency = 1.000
+    KeyBind.Position = UDim2.new(-0.0349854231, 0, 0.0591133013, 0)
+    KeyBind.Size = UDim2.new(1, -14, 0, 30)
+    KeyBind.Image = "rbxassetid://725697201"
+    KeyBind.ImageColor3 = Color3.fromRGB(140, 140, 140)
+    KeyBind.ScaleType = Enum.ScaleType.Slice
+    KeyBind.SliceCenter = Rect.new(34, 34, 34, 34)
+
+    local TextButton = Instance.new("TextButton", KeyBind)
+    TextButton.AnchorPoint = Vector2.new(0.5, 0.5)
+    TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextButton.BackgroundTransparency = 1.000
+    TextButton.BorderSizePixel = 0
+    TextButton.Position = UDim2.new(0.5, 0, 0.5, 0)
+    TextButton.Size = UDim2.new(1, 0, 0.800000012, 0)
+    TextButton.Font = Enum.Font.SourceSansBold
+    TextButton.Text = Bind.Name
+    TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextButton.TextSize = 20.000
+    TextButton.TextStrokeTransparency = 0.500
+
+    local bind = nil
+
+    local function Functionality()
+        local script = Instance.new('LocalScript', TextButton)
+
+        local UIS = game:GetService("UserInputService")
+        local changeBind = false
+        
+        script.Parent.MouseButton1Click:Connect(function()
+            changeBind = true
+            script.Parent.Text = ". . ."
+        end)
+        
+        UIS.InputBegan:Connect(function(input, processsed)
+            if processsed then return end
+            if changeBind then
+                changeBind = false
+                if input.KeyCode == Enum.KeyCode.Backspace then
+                    script.Parent.Text = "Nil bind"
+                    bind = nil
+                else
+                    script.Parent.Text = input.KeyCode.Name
+                    bind = input.KeyCode
+                end
+            end
+        end)
+    end
+    coroutine.wrap(Functionality)()
+
+    return bind
 end
 
 function library.NewSlider()
     
 end
 
-print("Update 0.23 test2")
+print("Update 0.23 t2")
 
 return library
