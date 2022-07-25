@@ -317,8 +317,8 @@ function library.NewKeybinder(Name, TBind, callback)
                     TextButton.Text = input.KeyCode.Name
                     bind = input.KeyCode
                 end
-                callback(bind)
             end
+            callback(bind)
         end)
     end
     coroutine.wrap(Functionality)()
