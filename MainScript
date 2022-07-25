@@ -8,11 +8,15 @@ local printersFolder = game:GetService("Workspace").MoneyPrinters
 local entitiesFolder = game:GetService("Workspace").Entities
 
 local ChamsTitle = lib.NewTitle("Chams", "Chams")
-local PrinterChams = lib.NewToggle("PrinterChams", "Printer chams")
 local PChamsActive = false
+local PrinterChams = lib.NewToggle("PrinterChams", "Printer chams", function()
+    PChamsActive = not PChamsActive
+end)
 
-local ShipmentChams = lib.NewToggle("ShipmentChams", "Shipment chams")
 local SChamsActive = false
+local ShipmentChams = lib.NewToggle("ShipmentChams", "Shipment chams", function()
+    SChamsActive = not SChamsActive
+end)
 
 local cache = {
     Highlights = {
@@ -20,14 +24,6 @@ local cache = {
         SChams = {}
     },
 }
-
-PrinterChams.MouseButton1Click:Connect(function()
-    PChamsActive = not PChamsActive
-end)
-
-ShipmentChams.MouseButton1Click:Connect(function()
-    SChamsActive = not SChamsActive
-end)
 
 game:GetService("RunService").Heartbeat:Connect(function()
     if PChamsActive then
@@ -60,3 +56,15 @@ game:GetService("RunService").Heartbeat:Connect(function()
     end
 
 end)
+
+--[[
+Name change function
+
+local ohNumber1 = 8
+local ohTable2 = {
+	[1] = "1",
+	[2] = "",
+	[3] = false
+}
+
+game:GetService("ReplicatedStorage").Events.MenuActionEvent:FireServer(ohNumber1, ohTable2)]]
