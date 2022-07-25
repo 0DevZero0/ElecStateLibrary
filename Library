@@ -319,7 +319,7 @@ function library.NewKeybinder(Name, TBind, callback)
                 end
             end
 
-            if input.KeyCode == bind then
+            if input.KeyCode == bind and not changeBind then
                 callback(bind)
             end
         end)
@@ -331,6 +331,6 @@ function library.NewSlider()
     
 end
 
-print("Update 0.23 t6")
+print("Update 0.23 t7")
 
 return library
