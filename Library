@@ -270,7 +270,7 @@ function library.NewToggle(Name, Text)
     return TextButton
 end
 
-function library.NewKeybinder(Name, Bind)
+function library.NewKeybinder(Name, TBind)
     local KeyBind = Instance.new("ImageLabel", Scripts:FindFirstChildOfClass("ScrollingFrame"))
     KeyBind.Name = Name
     KeyBind.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -290,12 +290,12 @@ function library.NewKeybinder(Name, Bind)
     TextButton.Position = UDim2.new(0.5, 0, 0.5, 0)
     TextButton.Size = UDim2.new(1, 0, 0.800000012, 0)
     TextButton.Font = Enum.Font.SourceSansBold
-    TextButton.Text = Bind.Name
+    TextButton.Text = TBind.Name
     TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
     TextButton.TextSize = 20.000
     TextButton.TextStrokeTransparency = 0.500
 
-    local bind = nil
+    local bind = TBind
 
     local function Functionality()
         local script = Instance.new('LocalScript', TextButton)
@@ -331,6 +331,6 @@ function library.NewSlider()
     
 end
 
-print("Update 0.23 t2")
+print("Update 0.23 t3")
 
 return library
