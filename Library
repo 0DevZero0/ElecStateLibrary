@@ -309,7 +309,6 @@ function library.NewKeybinder(Name, TBind, callback)
         UIS.InputBegan:Connect(function(input, processsed)
             if processsed then return end
             if changeBind then
-                changeBind = false
                 if input.KeyCode == Enum.KeyCode.Backspace then
                     TextButton.Text = "Nil bind"
                     bind = nil
@@ -317,6 +316,7 @@ function library.NewKeybinder(Name, TBind, callback)
                     TextButton.Text = input.KeyCode.Name
                     bind = input.KeyCode
                 end
+                changeBind = false
             end
 
             if input.KeyCode == bind and not changeBind then
@@ -331,6 +331,6 @@ function library.NewSlider()
     
 end
 
-print("Update 0.23 t7")
+print("Update 0.23 t7.1")
 
 return library
