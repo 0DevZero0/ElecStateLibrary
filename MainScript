@@ -15,6 +15,7 @@ local cache = {
         SChamsActive = false,
         lootcrateFarm = false,
         AntiNlr = false,
+        DeathReturn = false
     },
     debounces = {
         recentlyTpd = false
@@ -37,16 +38,16 @@ local cache = {
     }
 }
 
-function TeleportPlayer(tpPoint, returnPos)
+function TeleportPlayer(tpPoint, returnPos, offset)
     cache.debounces.recentlyTpd = true
     local character = player.Character or player.CharacterAdded:Wait()
     local humRP = character.HumanoidRootPart
     local lastPos = humRP.CFrame
 
     if typeof(tpPoint) == "CFrame" then
-        humRP.CFrame = tpPoint + Vector3.new(0, 3, 0)
+        humRP.CFrame = tpPoint + Vector3.new(0, offset, 0)
     elseif typeof(tpPoint) == "Instance" then
-        humRP.CFrame = tpPoint.CFrame + Vector3.new(0, 3, 0)
+        humRP.CFrame = tpPoint.CFrame + Vector3.new(0, offset, 0)
     end
     task.wait(0.1)
     if returnPos then humRP.CFrame = lastPos end
@@ -90,33 +91,36 @@ local bypassTitle = lib.NewTitle("Bypasses", "Bypasses")
 local bypasses = {
     antiNlr = lib.NewToggle("AntiNlr", "Anti nlr", function()
         cache.toggles.AntiNlr = not cache.toggles.AntiNlr
+    end),
+    deathReturn = lib.NewToggle("DeathReturn", "Return to death", function()
+        cache.toggles.DeathReturn = not cache.toggles.DeathReturn
     end)
 }
 
 local teleportsTitle = lib.NewTitle("TeleportsT", "Teleports")
 local Teleports = {
     tpScrap = lib.NewButton("Scrap", "Scrap yard", function()
-        TeleportPlayer(CFrame.new(-1210.92786, 145.621948, 115.11441, -0.422592998, 0, 0.906319618, 0, 1, 0, -0.906319618, 0, -0.422592998))
+        TeleportPlayer(CFrame.new(-1210.92786, 145.621948, 115.11441, -0.422592998, 0, 0.906319618, 0, 1, 0, -0.906319618, 0, -0.422592998), false, 3)
     end),
     
     tpLumber = lib.NewButton("Lumber", "Lumber yard", function()
-        TeleportPlayer(CFrame.new(-406.894073, 166.621948, -1719.32507, -0.866007447, 0, 0.500031412, 0, 1, 0, -0.500031412, 0, -0.866007447))
+        TeleportPlayer(CFrame.new(-406.894073, 166.621948, -1719.32507, -0.866007447, 0, 0.500031412, 0, 1, 0, -0.500031412, 0, -0.866007447), false, 3)
     end),
     
     tpFarm = lib.NewButton("Farm", "Farm", function()
-        TeleportPlayer(CFrame.new(1218.09912, 318.121948, -2136.75488, -1, 0, 0, 0, 1, 0, 0, 0, -1))
+        TeleportPlayer(CFrame.new(1218.09912, 318.121948, -2136.75488, -1, 0, 0, 0, 1, 0, 0, 0, -1), false, 3)
     end),
     
     tpConn = lib.NewButton("RepConn", "Repconn", function()
-        TeleportPlayer(CFrame.new(1523.07214, 295.621948, 727.11438, -0.422592998, 0, 0.906319618, 0, 1, 0, -0.906319618, 0, -0.422592998))
+        TeleportPlayer(CFrame.new(1523.07214, 295.621948, 727.11438, -0.422592998, 0, 0.906319618, 0, 1, 0, -0.906319618, 0, -0.422592998), false, 3)
     end),
     
     tpMansion = lib.NewButton("Mansion", "Mansion", function()
-        TeleportPlayer(CFrame.new(813.34259, 324.621948, -644.191833, -0.499959469, 0, 0.866048813, 0, 1, 0, -0.866048813, 0, -0.499959469))
+        TeleportPlayer(CFrame.new(813.34259, 324.621948, -644.191833, -0.499959469, 0, 0.866048813, 0, 1, 0, -0.866048813, 0, -0.499959469), false, 3)
     end),
     
     tpSchool = lib.NewButton("School", "School", function()
-        TeleportPlayer(CFrame.new(473.851501, 306.121948, -369.952148, -0.707134247, 0, 0.707079291, 0, 1, 0, -0.707079291, 0, -0.707134247))
+        TeleportPlayer(CFrame.new(473.851501, 306.121948, -369.952148, -0.707134247, 0, 0.707079291, 0, 1, 0, -0.707079291, 0, -0.707134247), false, 3)
     end)
 }
 
@@ -154,7 +158,7 @@ game:GetService("RunService").Heartbeat:Connect(function()
         local lootcrateFolder = workspace:FindFirstChild("Loot")
         if lootcrateFolder then
             local crate = findClosest(lootcrateFolder, "LootCrate")
-            if crate then TeleportPlayer(crate, true); game:GetService("ReplicatedStorage").Events.CratePickUpEvent:FireServer(crate.Parent) end
+            if crate then TeleportPlayer(crate, true, 3); game:GetService("ReplicatedStorage").Events.CratePickUpEvent:FireServer(crate.Parent) end
             print("Teleported")
         end
     end
@@ -163,7 +167,19 @@ game:GetService("RunService").Heartbeat:Connect(function()
         local NLRCirc = workspace:FindFirstChild("NL")
         if NLRCirc then NLRCirc:Destroy() end
     end
+
+    if cache.toggles.DeathReturn then
+        local tmpChar = player.Character
+        tmpChar.Humanoid.Died:Connect(function()
+            local deathPos = tmpChar.HumanoidRootPart.CFrame
+            tmpChar = player.CharacterAdded:Wait()
+            local tmpHumRP = tmpChar:WaitForChild("HumanoidRootPart")
+            tmpHumRP.Anchored = true
+            TeleportPlayer(deathPos, false, 0); task.wait(0.25)
+            tmpHumRP.Anchored = false
+        end)
+    end
 end)
 
 
-local version = lib.NewTitle("Version", "Update 0.0.2"); print("Ui name, ", version.Text)
+local version = lib.NewTitle("Version", "Update 0.0.3"); print("Ui name, ", version.Text)
