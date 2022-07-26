@@ -36,9 +36,9 @@ function TeleportPlayer(tpPoint)
     local character = player.Character or player.CharacterAdded:Wait()
     local humRP = character.HumanoidRootPart
 
-    if tpPoint == CFrame then
+    if typeof(tpPoint) == "CFrame" then
         humRP.CFrame = tpPoint
-    elseif tpPoint == Instance then
+    elseif typeof(tpPoint) == "Instance" then
         humRP.CFrame = tpPoint.CFrame
     end
 end
