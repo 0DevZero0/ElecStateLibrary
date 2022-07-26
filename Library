@@ -168,7 +168,7 @@ function library.NewButton(Name, ButtonText, callback)
     TextButton.TextSize = 20.000
     TextButton.TextStrokeTransparency = 0.500
 
-    TextButton.MouseButton1Click:Connect(callback())
+    TextButton.MouseButton1Click:Connect(callback)
 
     return Button
 end
