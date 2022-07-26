@@ -143,7 +143,7 @@ function library.NewTitle(Name, Text)
     return Title
 end
 
-function library.NewButton(Name, ButtonText)
+function library.NewButton(Name, ButtonText, callback)
     local Button = Instance.new("ImageLabel", Scripts:FindFirstChildOfClass("ScrollingFrame"))
     Button.Name = Name
     Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -168,7 +168,9 @@ function library.NewButton(Name, ButtonText)
     TextButton.TextSize = 20.000
     TextButton.TextStrokeTransparency = 0.500
 
-    return TextButton
+    TextButton.MouseButton1Click:Connect(callback())
+
+    return Button
 end
 
 function library.NewInput(Name, PlaceholderText, callback)
