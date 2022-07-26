@@ -1,34 +1,51 @@
 local player = game.Players.LocalPlayer
 
-if game.PlaceId ~= 2262441883 then player:Kick("Wrong game retard") end
+if game.PlaceId ~= 2262441883 then player:Kick("Wrong game, join the correct one.") end
 if not game:IsLoaded() then game.Loaded:Wait() end
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/0DevZero0/ElecStateLibrary/main/Library"))(); lib:LoadLib()
-
-print("Loaded : Update 0.1")
 
 local printersFolder = game:GetService("Workspace").MoneyPrinters
 local entitiesFolder = game:GetService("Workspace").Entities
 
-local ChamsTitle = lib.NewTitle("Chams", "Chams")
-local PChamsActive = false
-local PrinterChams = lib.NewToggle("PrinterChams", "Printer chams", function()
-    PChamsActive = not PChamsActive
-end)
-
-local SChamsActive = false
-local ShipmentChams = lib.NewToggle("ShipmentChams", "Shipment chams", function()
-    SChamsActive = not SChamsActive
-end)
-
 local cache = {
+    toggles = {
+        PChamsActive = false,
+        SChamsActive = false,
+        AntiNlr = false,
+    },
+
+    Printers = {
+        stolen = {},
+        beingCarried = {},
+    },
+
+    Shipments = {
+        stolen = {},
+        beingCarried = {},
+    },
+
     Highlights = {
         PChams = {},
         SChams = {}
     },
 }
 
+local ChamsTitle = lib.NewTitle("Chams", "Chams")
+local PrinterChams = lib.NewToggle("PrinterChams", "Printer chams", function()
+    cache.toggles.PChamsActive = not cache.toggles.PChamsActive
+end)
+
+local ShipmentChams = lib.NewToggle("ShipmentChams", "Shipment chams", function()
+    cache.toggles.SChamsActive = not cache.toggles.SChamsActive
+end)
+
+local bypassTitle = lib.NewTitle("Bypasses", "Bypasses")
+local antiNlr = lib.NewToggle("AntiNlr", "Anti nlr", function()
+    cache.toggles.AntiNlr = not cache.toggles.AntiNlr
+end)
+
 game:GetService("RunService").Heartbeat:Connect(function()
-    if PChamsActive then
+    if cache.toggles.PChamsActive then
         for i, v in ipairs(printersFolder:GetChildren()) do
             if not v:FindFirstChild("Main") then continue end
             if v.Main:FindFirstChild("Chams") then continue end
@@ -42,7 +59,7 @@ game:GetService("RunService").Heartbeat:Connect(function()
         end
     end
 
-    if SChamsActive then
+    if cache.toggles.SChamsActive then
         for i, v in ipairs(entitiesFolder:GetChildren()) do
             if v:FindFirstChild("MeshPart") and v:FindFirstChild("Int") and v.Int:FindFirstChild("Uses") and not v.MeshPart:FindFirstChild("Chams") then 
                 if v.Int.Uses.Value <= 0 then continue end
@@ -57,4 +74,10 @@ game:GetService("RunService").Heartbeat:Connect(function()
         end
     end
 
+    if cache.toggles.AntiNlr then
+        local NLRCirc = workspace:FindFirstChild("NL")
+        if NLRCirc then NLRCirc:Destroy() end
+    end
 end)
+
+local version = lib.NewTitle("Version", "Update 0.0.1"); print("Ui name, version:", version.Text)
