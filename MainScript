@@ -32,6 +32,17 @@ local cache = {
     },
 }
 
+function TeleportPlayer(tpPoint)
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humRP = character.HumanoidRootPart
+
+    if tpPoint == CFrame then
+        humRP.CFrame = tpPoint
+    elseif tpPoint == Instance then
+        humRP.CFrame = tpPoint.CFrame
+    end
+end
+
 local ChamsTitle = lib.NewTitle("Chams", "Chams")
 local PrinterChams = lib.NewToggle("PrinterChams", "Printer chams", function()
     cache.toggles.PChamsActive = not cache.toggles.PChamsActive
@@ -44,6 +55,31 @@ end)
 local bypassTitle = lib.NewTitle("Bypasses", "Bypasses")
 local antiNlr = lib.NewToggle("AntiNlr", "Anti nlr", function()
     cache.toggles.AntiNlr = not cache.toggles.AntiNlr
+end)
+
+local teleportsTitle = lib.NewTitle("TeleportsT", "Teleports")
+local tpScrap = lib.NewButton("Scrap", "Scrap yard", function()
+    TeleportPlayer(CFrame.new(-1210.92786, 145.621948, 115.11441, -0.422592998, 0, 0.906319618, 0, 1, 0, -0.906319618, 0, -0.422592998))
+end)
+
+local tpLumber = lib.NewButton("Lumber", "Lumber yard", function()
+    TeleportPlayer(CFrame.new(-406.894073, 166.621948, -1719.32507, -0.866007447, 0, 0.500031412, 0, 1, 0, -0.500031412, 0, -0.866007447))
+end)
+
+local tpFarm = lib.NewButton("Farm", "Farm", function()
+    TeleportPlayer(CFrame.new(1218.09912, 318.121948, -2136.75488, -1, 0, 0, 0, 1, 0, 0, 0, -1))
+end)
+
+local tpConn = lib.NewButton("RepConn", "Repconn", function()
+    TeleportPlayer(CFrame.new(1523.07214, 295.621948, 727.11438, -0.422592998, 0, 0.906319618, 0, 1, 0, -0.906319618, 0, -0.422592998))
+end)
+
+local tpMansion = lib.NewButton("Mansion", "Mansion", function()
+    TeleportPlayer(CFrame.new(813.34259, 324.621948, -644.191833, -0.499959469, 0, 0.866048813, 0, 1, 0, -0.866048813, 0, -0.499959469))
+end)
+
+local tpSchool = lib.NewButton("School", "School", function()
+    TeleportPlayer(CFrame.new(473.851501, 306.121948, -369.952148, -0.707134247, 0, 0.707079291, 0, 1, 0, -0.707079291, 0, -0.707134247))
 end)
 
 game:GetService("RunService").Heartbeat:Connect(function()
@@ -84,3 +120,47 @@ end)
 
 
 local version = lib.NewTitle("Version", "Update 0.0.1"); print("Ui name, ", version.Text)
+
+--[[
+Name change function
+
+local ohNumber1 = 8
+local ohTable2 = {
+	[1] = "1",
+	[2] = "",
+	[3] = false
+}
+
+game:GetService("ReplicatedStorage").Events.MenuActionEvent:FireServer(ohNumber1, ohTable2)
+]]
+
+--[[
+Spawn lockpick function
+
+local ohNumber1 = 49
+
+game:GetService("ReplicatedStorage").Events.MenuActionEvent:FireServer(ohNumber1)
+]]
+
+--[[
+Start Picking
+local ohNumber1 = 9
+local ohInstance2 = workspace.Entities["Lever Action Shipment"]
+
+game:GetService("ReplicatedStorage").Events.ToolsEvent:FireServer(ohNumber1, ohInstance2)
+
+Finish Picking
+local ohNumber1 = 1
+local ohInstance2 = workspace.Buildings.UMOMSUM["Door Vault"]
+
+game:GetService("ReplicatedStorage").Events.ToolsEvent:FireServer(ohNumber1, ohInstance2)
+]]
+
+--[[
+PlacePlot
+local ohNumber1 = 1
+local ohString2 = "Node"
+local ohCFrame3 = CFrame.new(-325.371277, 153.951828, -150.371979, -0.715059221, 3.98576994e-09, 0.699063897, -9.39047382e-11, 1, -5.79763526e-09, 0, 0, 0)
+
+game:GetService("ReplicatedStorage").Events.BuildingEvent:FireServer(ohNumber1, ohString2, ohCFrame3)
+]]
