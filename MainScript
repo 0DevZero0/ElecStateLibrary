@@ -126,7 +126,7 @@ game:GetService("RunService").Heartbeat:Connect(function()
             if not v:FindFirstChild("Main") then continue end
             if v.Main:FindFirstChild("Chams") then continue end
             local HL = Instance.new("Highlight", v.Main)
-            HL.Name = "Chams"; HL.OutlineTransparency = 1; HL.FillColor = Color3.fromRGB(197, 0, 0)
+            HL.Name = "Chams"; HL.OutlineTransparency = 1; HL.FillColor = Color3.fromRGB(0, 255, 136)
             table.insert(cache.Highlights.PChams, HL)
         end
     else
@@ -140,7 +140,7 @@ game:GetService("RunService").Heartbeat:Connect(function()
             if v:FindFirstChild("MeshPart") and v:FindFirstChild("Int") and v.Int:FindFirstChild("Uses") and not v.MeshPart:FindFirstChild("Chams") then 
                 if v.Int.Uses.Value <= 0 then continue end
                 local HL = Instance.new("Highlight", v.MeshPart)
-                HL.Name = "Chams"; HL.OutlineTransparency = 1; HL.FillColor = Color3.fromRGB(155, 88, 0)
+                HL.Name = "Chams"; HL.OutlineTransparency = 1; HL.FillColor = v.MeshPart.Color
                 table.insert(cache.Highlights.SChams, HL)
             end
         end
