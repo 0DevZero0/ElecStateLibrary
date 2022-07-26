@@ -80,4 +80,5 @@ game:GetService("RunService").Heartbeat:Connect(function()
     end
 end)
 
-local version = lib.NewTitle("Version", "Update 0.0.1"); print("Ui name, version:", version.Text)
+
+local version = lib.NewTitle("Version", "Update 0.0.1"); game.TestService.Message("Ui name, ", version.Text)
