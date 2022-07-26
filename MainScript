@@ -2,7 +2,7 @@ local player = game.Players.LocalPlayer
 
 if game.PlaceId ~= 2262441883 then player:Kick("Wrong game, join the correct one.") end
 if not game:IsLoaded() then game.Loaded:Wait() end
-if player.PlayerGui.Client.Menu.Catagories:FindFirstChild("5") then warn("No need to double inject my friend") return end
+if player.PlayerGui:WaitForChild("Client").Menu.Catagories:FindFirstChild("5") then warn("No need to double inject my friend") return end
 
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/0DevZero0/ElecStateLibrary/main/Library"))();lib:LoadLib()
 
@@ -87,7 +87,6 @@ local Teleports = {
         TeleportPlayer(CFrame.new(473.851501, 306.121948, -369.952148, -0.707134247, 0, 0.707079291, 0, 1, 0, -0.707079291, 0, -0.707134247))
     end)
 }
-
 
 game:GetService("RunService").Heartbeat:Connect(function()
     if cache.toggles.PChamsActive then
