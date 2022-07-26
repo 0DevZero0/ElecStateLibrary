@@ -2,9 +2,9 @@ local player = game.Players.LocalPlayer
 
 if game.PlaceId ~= 2262441883 then player:Kick("Wrong game, join the correct one.") end
 if not game:IsLoaded() then game.Loaded:Wait() end
-if player.PlayerGui.Client.Menu.Catagories:FindFirstChild("5") then warn("No need to double inject my friend") while task.wait() do script:Destroy() print(".") end end
-local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/0DevZero0/ElecStateLibrary/main/Library"))(); lib:LoadLib()
-warn("Loaded")
+if player.PlayerGui.Client.Menu.Catagories:FindFirstChild("5") then warn("No need to double inject my friend") return end
+
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/0DevZero0/ElecStateLibrary/main/Library"))();lib:LoadLib()
 
 local printersFolder = game:GetService("Workspace").MoneyPrinters
 local entitiesFolder = game:GetService("Workspace").Entities
