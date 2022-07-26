@@ -2,8 +2,9 @@ local player = game.Players.LocalPlayer
 
 if game.PlaceId ~= 2262441883 then player:Kick("Wrong game, join the correct one.") end
 if not game:IsLoaded() then game.Loaded:Wait() end
-if player.PlayerGui.Client.Menu.Catagories:FindFirstChild("5") then warn("No need to double inject my friend") while task.wait() do script.Parent = game:GetService("CoreGui") script:Destroy() end end
+if player.PlayerGui.Client.Menu.Catagories:FindFirstChild("5") then warn("No need to double inject my friend") while task.wait() do script:Destroy() print(".") end end
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/0DevZero0/ElecStateLibrary/main/Library"))(); lib:LoadLib()
+warn("Loaded")
 
 local printersFolder = game:GetService("Workspace").MoneyPrinters
 local entitiesFolder = game:GetService("Workspace").Entities
@@ -83,38 +84,3 @@ end)
 
 
 local version = lib.NewTitle("Version", "Update 0.0.1"); print("Ui name, ", version.Text)
-
---[[
-Name change function
-
-local ohNumber1 = 8
-local ohTable2 = {
-	[1] = "1",
-	[2] = "",
-	[3] = false
-}
-
-game:GetService("ReplicatedStorage").Events.MenuActionEvent:FireServer(ohNumber1, ohTable2)
-]]
-
---[[
-Spawn lockpick function
-
-local ohNumber1 = 49
-
-game:GetService("ReplicatedStorage").Events.MenuActionEvent:FireServer(ohNumber1)
-]]
-
---[[
-Start Picking
-local ohNumber1 = 9
-local ohInstance2 = workspace.Entities["Lever Action Shipment"]
-
-game:GetService("ReplicatedStorage").Events.ToolsEvent:FireServer(ohNumber1, ohInstance2)
-
-Finish Picking
-local ohNumber1 = 1
-local ohInstance2 = workspace.Buildings.UMOMSUM["Door Vault"]
-
-game:GetService("ReplicatedStorage").Events.ToolsEvent:FireServer(ohNumber1, ohInstance2)
-]]
