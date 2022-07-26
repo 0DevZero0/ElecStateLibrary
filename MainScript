@@ -13,9 +13,12 @@ local cache = {
     toggles = {
         PChamsActive = false,
         SChamsActive = false,
+        lootcrateFarm = false,
         AntiNlr = false,
     },
-
+    debounces = {
+        recentlyTpd = false
+    },
     Printers = {
         stolen = {},
         beingCarried = {},
@@ -25,22 +28,44 @@ local cache = {
         stolen = {},
         beingCarried = {},
     },
-
     Highlights = {
         PChams = {},
         SChams = {}
     },
+    temp = {
+
+    }
 }
 
-function TeleportPlayer(tpPoint)
+function TeleportPlayer(tpPoint, returnPos)
+    cache.debounces.recentlyTpd = true
     local character = player.Character or player.CharacterAdded:Wait()
     local humRP = character.HumanoidRootPart
+    local lastPos = humRP.CFrame
 
     if typeof(tpPoint) == "CFrame" then
-        humRP.CFrame = tpPoint
+        humRP.CFrame = tpPoint + Vector3.new(0, 3, 0)
     elseif typeof(tpPoint) == "Instance" then
-        humRP.CFrame = tpPoint.CFrame
+        humRP.CFrame = tpPoint.CFrame + Vector3.new(0, 3, 0)
     end
+    task.wait(0.1)
+    if returnPos then humRP.CFrame = lastPos end
+    cache.debounces.recentlyTpd = false
+end
+
+function findClosest(folder, obj)
+    cache.temp = {}
+    for i, v in pairs(folder:GetChildren()) do
+        local main = v:FindFirstChild(obj)
+        if not main then continue end
+
+        local dist = (player.Character.HumanoidRootPart.Position - main.Position).magnitude
+        table.insert(cache.temp, {main, dist})
+    end
+
+    if #cache.temp <= 0 then return nil end
+    table.sort(cache.temp, function(v1, v2) return v1[2] < v2[2] end)
+    return cache.temp[1][1]
 end
 
 local ChamsTitle = lib.NewTitle("Chams", "Chams")
@@ -51,6 +76,13 @@ local chams = {
     
     ShipmentChams = lib.NewToggle("ShipmentChams", "Shipment chams", function()
         cache.toggles.SChamsActive = not cache.toggles.SChamsActive
+    end)
+}
+
+local farmingTitle = lib.NewTitle("Farming", "Farming")
+local farming = {
+    lootcrate = lib.NewToggle("lootCrate", "Lootcrate farm", function()
+        cache.toggles.lootcrateFarm = not cache.toggles.lootcrateFarm
     end)
 }
 
@@ -115,6 +147,15 @@ game:GetService("RunService").Heartbeat:Connect(function()
     else
         for i, v in pairs(cache.Highlights.SChams) do
             v:Destroy()
+        end
+    end
+
+    if cache.toggles.lootcrateFarm and not cache.debounces.recentlyTpd then
+        local lootcrateFolder = workspace:FindFirstChild("Loot")
+        if lootcrateFolder then
+            local crate = findClosest(lootcrateFolder, "LootCrate")
+            if crate then TeleportPlayer(crate, true); game:GetService("ReplicatedStorage").Events.CratePickUpEvent:FireServer(crate.Parent) end
+            print("Teleported")
         end
     end
 
