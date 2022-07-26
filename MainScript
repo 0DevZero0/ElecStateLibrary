@@ -174,6 +174,7 @@ game:GetService("RunService").Heartbeat:Connect(function()
             local deathPos = tmpChar.HumanoidRootPart.CFrame
             tmpChar = player.CharacterAdded:Wait()
             local tmpHumRP = tmpChar:WaitForChild("HumanoidRootPart")
+
             tmpHumRP.Anchored = true
             TeleportPlayer(deathPos, false, 0); task.wait(0.25)
             tmpHumRP.Anchored = false
@@ -182,4 +183,4 @@ game:GetService("RunService").Heartbeat:Connect(function()
 end)
 
 
-local version = lib.NewTitle("Version", "Update 0.0.3"); print("Ui name, ", version.Text)
+local version = lib.NewTitle("Version", "Alpha 0.3"); print("Ui name, ", version.Text)
