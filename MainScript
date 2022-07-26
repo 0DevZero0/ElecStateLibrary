@@ -2,6 +2,7 @@ local player = game.Players.LocalPlayer
 
 if game.PlaceId ~= 2262441883 then player:Kick("Wrong game, join the correct one.") end
 if not game:IsLoaded() then game.Loaded:Wait() end
+if player.PlayerGui.Client.Menu.Catagories:FindFirstChild("5") then warn("No need to double inject my friend") script:Destroy() end
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/0DevZero0/ElecStateLibrary/main/Library"))(); lib:LoadLib()
 
 local printersFolder = game:GetService("Workspace").MoneyPrinters
@@ -81,4 +82,4 @@ game:GetService("RunService").Heartbeat:Connect(function()
 end)
 
 
-local version = lib.NewTitle("Version", "Update 0.0.1"); game:GetService("TestService"):Message("Ui name, ", version.Text)
+local version = lib.NewTitle("Version", "Update 0.0.1"); print("Ui name, ", version.Text)
