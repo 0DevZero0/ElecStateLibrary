@@ -1,5 +1,7 @@
 local player = game.Players.LocalPlayer
 
+local UIS = game:GetService("UserInputService")
+
 if game.PlaceId ~= 2262441883 then player:Kick("Wrong game, join the correct one.") end
 if not game:IsLoaded() then game.Loaded:Wait() end
 if player.PlayerGui:WaitForChild("Client").Menu.Catagories:FindFirstChild("5") then warn("No need to double inject my friend") return end
@@ -15,7 +17,8 @@ local cache = {
         SChamsActive = false,
         lootcrateFarm = false,
         AntiNlr = false,
-        DeathReturn = false
+        DeathReturn = false,
+        ClickTp = false
     },
     debounces = {
         recentlyTpd = false
@@ -48,6 +51,8 @@ function TeleportPlayer(tpPoint, returnPos, offset)
         humRP.CFrame = tpPoint + Vector3.new(0, offset, 0)
     elseif typeof(tpPoint) == "Instance" then
         humRP.CFrame = tpPoint.CFrame + Vector3.new(0, offset, 0)
+    elseif typeof(tpPoint) == "Vector3" then
+        humRP.CFrame = CFrame.new(tpPoint + Vector3.new(0, offset, 0))
     end
     task.wait(0.1)
     if returnPos then humRP.CFrame = lastPos end
@@ -99,6 +104,9 @@ local bypasses = {
 
 local teleportsTitle = lib.NewTitle("TeleportsT", "Teleports")
 local Teleports = {
+    clickTp = lib.NewToggle("ClickTp", "Ctrl click tp", function()
+        cache.toggles.ClickTp = not cache.toggles.ClickTp
+    end),
     tpScrap = lib.NewButton("Scrap", "Scrap yard", function()
         TeleportPlayer(CFrame.new(-1210.92786, 145.621948, 115.11441, -0.422592998, 0, 0.906319618, 0, 1, 0, -0.906319618, 0, -0.422592998), false, 3)
     end),
@@ -123,6 +131,12 @@ local Teleports = {
         TeleportPlayer(CFrame.new(473.851501, 306.121948, -369.952148, -0.707134247, 0, 0.707079291, 0, 1, 0, -0.707079291, 0, -0.707134247), false, 3)
     end)
 }
+
+UIS.InputBegan:Connect(function(input, gameProcessedEvent)
+    if gameProcessedEvent then return end
+
+    if UIS:IsKeyDown(Enum.KeyCode.LeftControl) and input.UserInputType == Enum.UserInputType.MouseButton1 and cache.toggles.ClickTp then TeleportPlayer(player:GetMouse().Hit.Position, false, 3) end
+end)
 
 game:GetService("RunService").Heartbeat:Connect(function()
     if cache.toggles.PChamsActive then
@@ -159,7 +173,6 @@ game:GetService("RunService").Heartbeat:Connect(function()
         if lootcrateFolder then
             local crate = findClosest(lootcrateFolder, "LootCrate")
             if crate then TeleportPlayer(crate, true, 3); game:GetService("ReplicatedStorage").Events.CratePickUpEvent:FireServer(crate.Parent) end
-            print("Teleported")
         end
     end
 
@@ -176,11 +189,10 @@ game:GetService("RunService").Heartbeat:Connect(function()
             local tmpHumRP = tmpChar:WaitForChild("HumanoidRootPart")
 
             tmpHumRP.Anchored = true
-            TeleportPlayer(deathPos, false, 0); task.wait(0.25)
+            TeleportPlayer(deathPos, false, 0); task.wait(0.5)
             tmpHumRP.Anchored = false
         end)
     end
 end)
-
 
 local version = lib.NewTitle("Version", "Alpha 0.3"); print("Ui name, ", version.Text)
