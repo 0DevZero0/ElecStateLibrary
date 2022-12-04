@@ -41,7 +41,7 @@ local cache = {
     }
 }
 
-function TeleportPlayer(tpPoint, returnPos, offset)
+function TeleportPlayer(tpPoint, returnPos: boolean, offset)
     cache.debounces.recentlyTpd = true
     local character = player.Character or player.CharacterAdded:Wait()
     local humRP = character.HumanoidRootPart
@@ -102,6 +102,19 @@ local bypasses = {
     end)
 }
 
+local locateTitle = lib.NewTitle("Locate", "Locate Objects")
+local locaters = {
+    printerLocate = lib.NewButton("Printers", "Locate Printers", function()
+        for i, v in pairs(workspace.MoneyPrinters:GetChildren()) do
+            local main = v:FindFirstChild("Main")
+            if main then
+                TeleportPlayer(main, true, 100)
+            end
+            task.wait(0.1)
+        end
+    end)
+}
+
 local teleportsTitle = lib.NewTitle("TeleportsT", "Teleports")
 local Teleports = {
     clickTp = lib.NewToggle("ClickTp", "Ctrl click tp", function()
@@ -129,6 +142,30 @@ local Teleports = {
     
     tpSchool = lib.NewButton("School", "School", function()
         TeleportPlayer(CFrame.new(473.851501, 306.121948, -369.952148, -0.707134247, 0, 0.707079291, 0, 1, 0, -0.707079291, 0, -0.707134247), false, 3)
+    end)
+}
+
+local botTitle = lib.NewTitle("Bot", "Bot")
+local botFunctions = {
+    setUpBot = lib.NewButton("Botsetup", "Activate bot", function()
+        local lastPos = player.Character.HumanoidRootPart.CFrame
+        local Customize = {
+            [1] = "Worker [Bot]",
+            [2] = "6837453954, 6837457477, 17408283, 8116809403, 5197078721",
+            [3] = true
+        }
+        game:GetService("ReplicatedStorage").Events.MenuActionEvent:FireServer(8, Customize)
+        game:GetService("ReplicatedStorage").Events.MenuEvent:FireServer(1, "Farmer")
+
+        player.CharacterAdded:Wait()
+        TeleportPlayer(lastPos, false, 3)
+    end)
+}
+
+local miscTitle = lib.NewTitle("Misc", "Misc")
+local miscObjs = {
+    rejoin = lib.NewButton("Rejoin", "Rejoin", function()
+        game:GetService("TeleportService"):Teleport(game.PlaceId, player)
     end)
 }
 
@@ -195,4 +232,4 @@ game:GetService("RunService").Heartbeat:Connect(function()
     end
 end)
 
-local version = lib.NewTitle("Version", "Alpha 0.3"); print("Ui name, ", version.Text)
+local version = lib.NewTitle("Version", "Alpha 0.4"); print("Ui name, ", version.Text)
