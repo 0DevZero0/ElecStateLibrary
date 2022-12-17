@@ -396,56 +396,53 @@ function library.NewSlider(Name, Value, MaxSlide, callback)
     Slider_2.TextColor3 = Color3.fromRGB(0, 0, 0)
     Slider_2.TextSize = 14.000
     
-    local function functionality()
-        local frame = Line
-        local button = Slider_2
-        local bar = Bar
-        local text = Amount
-        local db = false
-        local percentage = 0
-        local Max = MaxSlide
-        local step = 1/Max
-        local number = Value
-    
-        local function snap(num,factor)
-            if factor == 0 then
-                return num
-            else
-                return math.floor(num/factor+0.5)*factor
-            end
-        end
-    
-        UIS.InputEnded:Connect(function(input)
-            if input.UserInputType == Enum.UserInputType.MouseButton1 then
-                db = false
-                callback(number)
-            end
-        end)
-    
-        button.MouseButton1Down:Connect(function()
-            db = true
-        end)
-    
-        RS.RenderStepped:Connect(function()
-            if db then
-                local mousepos = UIS:GetMouseLocation().X
-                local buttonpos = button.Position
-                local framesize = frame.AbsoluteSize.X
-                local framepos = frame.AbsolutePosition.X
-                local pos = snap((mousepos-framepos)/framesize,step)
-                percentage = math.clamp(pos,0,1)
-                bar.Position = UDim2.new(percentage,0,buttonpos.Y.Scale,buttonpos.Y.Offset)
-    
-                number = math.floor(percentage * Max)
-                text.Text = number
-            end
+    local frame = Line
+    local button = Slider_2
+    local bar = Bar
+    local text = Amount
+    local db = false
+    local percentage = 0
+    local Max = MaxSlide
+    local step = 1/Max
+    local number = Value
 
-            bar.Position = UDim2.new(Value / Max, 0,0,3)
-        end)
+    local function snap(num,factor)
+        if factor == 0 then
+            return num
+        else
+            return math.floor(num/factor+0.5)*factor
+        end
     end
-    coroutine.wrap(functionality)()
+
+    UIS.InputEnded:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            db = false
+            callback(number)
+        end
+    end)
+
+    button.MouseButton1Down:Connect(function()
+        db = true
+    end)
+
+    RS.RenderStepped:Connect(function()
+        if db then
+            local mousepos = UIS:GetMouseLocation().X
+            local buttonpos = button.Position
+            local framesize = frame.AbsoluteSize.X
+            local framepos = frame.AbsolutePosition.X
+            local pos = snap((mousepos-framepos)/framesize,step)
+            percentage = math.clamp(pos,0,1)
+            bar.Position = UDim2.new(percentage,0,0,3)
+
+            number = math.floor(percentage * Max)
+            text.Text = number
+        end
+
+        bar.Position = UDim2.new(Value / Max, 0,0,3)
+    end)
 end
 
-print("Improved slider")
+print("Improved slider function")
 
 return library
