@@ -337,7 +337,7 @@ function library.NewKeybinder(Name, TBind, callback)
     coroutine.wrap(Functionality)()
 end
 
-function library.NewSlider(Name, MaxSlide, callback)
+function library.NewSlider(Name, Value, MaxSlide, callback)
     local Slider = Instance.new("ImageLabel", Scripts:FindFirstChildOfClass("ScrollingFrame"))
     Slider.Name = Name
     Slider.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -405,6 +405,7 @@ function library.NewSlider(Name, MaxSlide, callback)
         local percentage = 0
         local Max = MaxSlide
         local step = 1/Max
+        local number = Value
     
         local function snap(num,factor)
             if factor == 0 then
@@ -417,6 +418,7 @@ function library.NewSlider(Name, MaxSlide, callback)
         UIS.InputEnded:Connect(function(input)
             if input.UserInputType == Enum.UserInputType.MouseButton1 then
                 db = false
+                callback(number)
             end
         end)
     
@@ -434,13 +436,16 @@ function library.NewSlider(Name, MaxSlide, callback)
                 percentage = math.clamp(pos,0,1)
                 bar.Position = UDim2.new(percentage,0,buttonpos.Y.Scale,buttonpos.Y.Offset)
     
-                local number = math.floor(percentage * Max)
+                number = math.floor(percentage * Max)
                 text.Text = number
-                callback(number)
             end
+
+            bar.Position = UDim2.new(Value / Max, 0,0,3)
         end)
     end
     coroutine.wrap(functionality)()
 end
+
+print("Improved slider")
 
 return library
